@@ -1,11 +1,10 @@
 <template>
-  <header>Admin</header>
+  <h3>Login</h3>
 </template>
 
 <script>
 export default {
-name: 'privateLayout'
-
+name: "AuthLogin"
 }
 </script>
 
