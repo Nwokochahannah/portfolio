@@ -1,11 +1,10 @@
 <template>
-<router-view />
+  <h3>Login</h3>
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+name: "AuthLogin"
 }
 </script>
 
