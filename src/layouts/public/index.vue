@@ -1,6 +1,6 @@
 <template>
   <Header />
-    <main class="LayoutDefault__main">
+    <main class="PublicLayout__main">
       <slot/>
     </main>
   <Footer />

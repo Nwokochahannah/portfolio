@@ -1,5 +1,5 @@
 <template>
-  <nav class="LayoutDefault__nav">
+  <nav class="PublicLayout__nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>

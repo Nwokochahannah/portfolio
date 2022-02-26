@@ -1,5 +1,5 @@
 <template>
-  <footer class="LayoutDefault__footer">
+  <footer class="PublicLayout__footer">
       <p>&copy; Awesome Company</p>
   </footer>
 </template>
