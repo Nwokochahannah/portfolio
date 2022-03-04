@@ -1,5 +1,10 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import './input.css'
+import router from '@/router'
+import VueToast from 'vue-toast-notification'
 
-createApp(App).mount('#app')
+import App from './App.vue'
+import store from './store'
+import 'vue-toast-notification/dist/theme-sugar.css'
+import './tailwind.css'
+
+createApp(App).use(router).use(store).use(VueToast).mount('#app')
