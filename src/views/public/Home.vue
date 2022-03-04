@@ -1,6 +1,7 @@
 <template>
 <PublicLayout>
   <h3>Home Page</h3>
+  <h1>Hannah Nwokocha</h1>
 </PublicLayout>
 </template>
 
