@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import router from '../router'
+import APIService from '../services'
 
 const store = createStore({
   state: {
@@ -7,12 +8,12 @@ const store = createStore({
       isAdmin: false,
       profile: null,
     },
+    status: {
+      type: '',
+      message: '',
+    },
     lifeCircle: {
       isLoading: false, //this should be true by default,
-      status: {
-        type: '',
-        message: '',
-      },
     },
     works: [],
     contacts: [
@@ -55,6 +56,9 @@ const store = createStore({
       */
       state.lifeCircle[payload.key] = payload.value
     },
+    updateStatus(state, payload) {
+      state.status = payload
+    },
     setAuth(state, payload) {
       //return payload <Boolean>
       state.auth.isAdmin = payload
@@ -93,27 +97,46 @@ const store = createStore({
         key: 'isLoading',
         value: true,
       })
-      //do some api calling here and get accessToken
-      //store in localStorage.setItem('accessToken');
-      //fetch user profile with accessToken
-
-      //for demo purpose
-      setTimeout(() => {
-        commit('setProfile', {
-          ...payload,
-          firstName: 'Hannah',
-          lastName: 'Nwokocha',
-          middleName: 'Sopuruchi',
-          photoUrl: 'https://avatars.githubusercontent.com/u/62136073?v=4',
-          createAt: '2022-02-25T23:35:21.047Z',
+      try {
+        //do some api calling here and get secret and id
+        const response = await APIService.post('/auth/login', payload, {
+          headers: {
+            'X-Variant': 'login',
+          },
         })
+        const data = response.data
+
+        //store in localStorage
+        localStorage.setItem('authSecret', data?.secret)
+
+        //fetch user profile with id & secret
+        const { data: profile } = await APIService.get(
+          `auth/profile?secret=${data?.secret}&id=${data?.instance['@ref']?.id}`,
+          {
+            headers: {
+              'X-Variant': 'profile',
+            },
+          }
+        )
+
+        commit('setProfile', profile?.data)
         commit('setAuth', true)
+        commit('updateStatus', {
+          type: 'success',
+          message: 'Login success',
+        })
+
+        router.push('/dashboard')
+      } catch (error) {
+        commit('updateStatus', {
+          type: 'error',
+          message: error?.response?.data?.message || 'something went wrong!',
+        })
         commit('updateLifeCircle', {
           key: 'isLoading',
           value: false,
         })
-        router.push('/dashboard')
-      }, 3000)
+      }
     },
     logout({ commit }) {
       // remove localStorage item

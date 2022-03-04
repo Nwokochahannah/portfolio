@@ -1,0 +1,24 @@
+[functions]
+        directory = "./functions"
+
+[[redirects]]
+from = "/create"
+to = "/.netlify/functions/auth"
+status = 200
+force = true
+headers = {X-Variant = "create", Access-Control-Allow-Origin = "*", Access-Control-Allow-Methods = "POST"}
+
+[[redirects]]
+from = "/login"
+to = "/.netlify/functions/auth"
+status = 200
+force = true
+headers = {X-Variant = "login", Access-Control-Allow-Origin = "*", Access-Control-Allow-Methods = "POST"}
+
+
+[[redirects]]
+from = "/profile"
+to = "/.netlify/functions/auth"
+status = 200
+force = true
+headers = {X-Variant = "profile", Access-Control-Allow-Origin = "*", Access-Control-Allow-Methods = "GET"}
